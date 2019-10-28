@@ -1,0 +1,11 @@
+msgid "settings.calsection.title"
+msgstr "Calendars"
+
+msgid "settings.calendar.title"
+msgstr "Calendar"
+
+msgid "settings.calendar.name"
+msgstr "Name"
+
+msgid "settings.calendar.url"
+msgstr "URL"

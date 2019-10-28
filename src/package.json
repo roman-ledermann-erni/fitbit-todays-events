@@ -1,0 +1,26 @@
+{
+  "fitbit": {
+    "appUUID": "a0ff0d33-f064-4509-acaa-c6367aaf7d1e",
+    "appType": "app",
+    "appDisplayName": "Todays Events",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#607d8b",
+    "requestedPermissions": [
+      "access_internet"
+    ],
+    "buildTargets": [
+      "higgs",
+      "meson",
+      "gemini"
+    ],
+    "i18n": {
+      "en": {
+        "name": "Todays Events"
+      }
+    },
+    "defaultLanguage": "en-US"
+  },
+  "devDependencies": {
+    "@fitbit/sdk": "~3.1.0"
+  }
+}
