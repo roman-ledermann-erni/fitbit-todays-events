@@ -39,17 +39,35 @@ IcsParser.prototype.parseICS = function(str){
    return ctx
 };
 
-IcsParser.prototype.unpackEvents = function(events){
-  var unpackedEvents = [];
+IcsParser.prototype.getTimezones = function(records) {
+  var timezones = [];
+  for (let packedTimezone in records) {
+    if (records.hasOwnProperty(packedTimezone) && records[packedTimezone].type === 'VTIMEZONE') {
+      let tZone = records[packedTimezone];
+      let tzData = { tzid: tZone.tzid};
+      
+      for(let tzPart in tZone) {
+        if (tZone.hasOwnProperty(tzPart)) {
+          tzData[tZone[tzPart].type] = tZone[tzPart];
+        }
+      }
+      timezones[tzData.tzid] = tzData;
+    }
+  }
+  return timezones;
+};
+
+IcsParser.prototype.getEvents = function(records) {
+  var events = [];
   
-  for (let packedEvent in events) {
-    if (events.hasOwnProperty(packedEvent) && events[packedEvent].type === 'VEVENT') {
-      var unpacked = events[packedEvent];
-      unpackedEvents.push(unpacked);
+  for (let packedEvent in records) {
+    if (records.hasOwnProperty(packedEvent) && records[packedEvent].type === 'VEVENT') {
+      var unpacked = records[packedEvent];
+      events.push(unpacked);
     }
   }
   
-  return unpackedEvents;
+  return events;
 };
 
 const objectHandlers = {
@@ -267,7 +285,7 @@ function addTZ(dt, params) {
   var p = parseParams(params);
 
   if (params && p){
-    dt.tz = p.TZID
+    dt.tz = p.TZID;
   }
 
   return dt
@@ -289,8 +307,6 @@ function dateParam (name) {
           parseInt(comps[2], 10)-1,
           comps[3]
         );
-
-        newDate = addTZ(newDate, params);
 
         curr["allDay"] = true;
         return storeValParam(name)(newDate, curr)
@@ -320,7 +336,11 @@ function dateParam (name) {
           parseInt(comps[6], 10)
         );
       }
-
+      
+      var pp = parseParams(params);
+      if (params && pp && pp.TZID) {
+        curr["tzid" + name] = pp.TZID;
+      }
       newDate = addTZ(newDate, params);
     }
     // Store as string - worst case scenario

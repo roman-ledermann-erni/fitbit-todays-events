@@ -1,3 +1,52 @@
 <svg>
-  <rect id="background" />
+  <!-- Event date -->
+  <symbol id="date-header" href="#tile-list-item" display="none">
+    <text id="date-header-text" class="date-header-text" text-anchor="start" text-length="16"/>
+  </symbol>
+  
+  <symbol id="event-item" href="#tile-list-item" pointer-events="visible" display="none">
+    <line x1="8" y1="6" x2="340" y2="6" stroke-width="10" fill="lightgrey" opacity="0.7" />
+    <rect x="0" y="7" width="100%" height="5" fill="black" />
+    <rect x="4" y="7" width="341" height="100%-14" fill="lightgrey" opacity="0.7" />
+    
+    <section id="event-summary-section" class="event-summary-section">
+      <textarea id="event-summary" class="event-summary-text" width="100%" height="100%" text-overflow="ellipsis" text-length="128" />
+    </section>
+    <textarea id="event-summary-row-placeholder" class="event-summary-row-placeholder" />
+    <textarea id="event-location" class="event-location-text" text-overflow="ellipsis" text-length="128" />
+    
+    <line x1="8" y1="100%-6" x2="340" y2="100%-6" stroke-width="10" fill="lightgrey" opacity="0.7" />
+    <rect x="0" y="100%-12" width="100%" height="5" fill="black" />
+  </symbol>
+  
+  <use id="event-list" href="#tile-list">
+    <var id="virtual" value="1" />
+    <var id="separator-height-bottom" value="2" />
+    
+    <use id="date-header-pool" href="#tile-list-pool">
+      <use href="#date-header" id="date-header-pool[1]"></use>
+      <use href="#date-header" id="date-header-pool[2]"></use>
+      <use href="#date-header" id="date-header-pool[3]"></use>
+      <use href="#date-header" id="date-header-pool[4]"></use>
+      <use href="#date-header" id="date-header-pool[5]"></use>
+      <use href="#date-header" id="date-header-pool[6]"></use>
+      <use href="#date-header" id="date-header-pool[7]"></use>
+      <use href="#date-header" id="date-header-pool[8]"></use>
+      <use href="#date-header" id="date-header-pool[9]"></use>
+      <use href="#date-header" id="date-header-pool[10]"></use>
+    </use>
+    
+    <use id="event-item-pool" href="#tile-list-pool">
+      <use id="event-item-pool[0]" href="#event-item" class="tile-list-item" />
+      <use id="event-item-pool[1]" href="#event-item" class="tile-list-item" />
+      <use id="event-item-pool[2]" href="#event-item" class="tile-list-item" />
+      <use id="event-item-pool[3]" href="#event-item" class="tile-list-item" />
+      <use id="event-item-pool[4]" href="#event-item" class="tile-list-item" />
+      <use id="event-item-pool[5]" href="#event-item" class="tile-list-item" />
+      <use id="event-item-pool[6]" href="#event-item" class="tile-list-item" />
+      <use id="event-item-pool[7]" href="#event-item" class="tile-list-item" />
+      <use id="event-item-pool[8]" href="#event-item" class="tile-list-item" />
+      <use id="event-item-pool[9]" href="#event-item" class="tile-list-item" />
+    </use>
+  </use>
 </svg>

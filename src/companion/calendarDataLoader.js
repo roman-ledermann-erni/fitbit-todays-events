@@ -59,16 +59,3 @@ function getCalendarsFromSettings() {
   } while (counter < 5 && calUrl !== undefined && calUrl !== null);
   return calendars;
 };
-
-function translateEvent(icsEvent, calendar) {
-  var event = {
-    start: icsEvent.startDate.getTime(),
-    end:  icsEvent.endDate === undefined ? icsEvent.startDate.getTime() : icsEvent.endDate.getTime(),
-    allDay: icsEvent.allDay,
-		summary: icsEvent.summary,
-		location: icsEvent.location === undefined ? "" : icsEvent.location,
-    cal: calendar.name,
-		color: calendar.color,
-  };
-	return event;
-}

@@ -5,10 +5,11 @@ import iCalendar from "./iCalendar.js";
 import { CalendarDataLoader } from "./calendarDataLoader.js";
 import { IcsParser } from "./icsParser.js";
 import { EventTranslator } from "./eventTranslator.js";
-import { MESSAGE_KEY_ERROR, MESSAGE_KEY_EVENTS } from "../common/globals.js";
+import { MESSAGE_KEY_ERROR, MESSAGE_KEY_CLEAR_EVENTS, MESSAGE_KEY_EVENTS, MESSAGE_KEY_UPDATE_FINISHED } from "../common/globals.js";
 
 // Message socket opens
 messaging.peerSocket.onopen = () => {
+  clearEvents();
   sendEvents();
 };
 
@@ -19,6 +20,7 @@ messaging.peerSocket.onmessage = evt => {
 
 // A user changes settings
 settingsStorage.onchange = evt => {
+  clearEvents();
   sendEvents();
 };
 
@@ -27,6 +29,13 @@ function sendMessage(msg) {
   if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
     messaging.peerSocket.send(msg);
   }
+}
+
+function clearEvents() {
+  let msg = {
+    key: MESSAGE_KEY_CLEAR_EVENTS,
+  };
+  sendMessage(msg);
 }
 
 function sendEvents() {
@@ -43,9 +52,10 @@ function sendEvents() {
     } else {
       var combinedEvents = [];
       calendars.forEach(cal => {
-        let events = parser.parseICS(cal.data);
-        events = parser.unpackEvents(events);
-        translator.translate(events, cal, combinedEvents);
+        let records = parser.parseICS(cal.data);
+        let timezones = parser.getTimezones(records);
+        let events = parser.getEvents(records);
+        translator.translate(events, timezones, cal, combinedEvents);
       });
       combinedEvents = translator.limit(combinedEvents);
       combinedEvents.forEach(event => {
@@ -53,8 +63,11 @@ function sendEvents() {
           key: MESSAGE_KEY_EVENTS,
           message: event
         };
+        //console.log(new Date(event.start) + " " + event.summary);
         sendMessage(data);
       });
+      let finishedMsg = { key: MESSAGE_KEY_UPDATE_FINISHED };
+      sendMessage(finishedMsg);
     }
   });
 }

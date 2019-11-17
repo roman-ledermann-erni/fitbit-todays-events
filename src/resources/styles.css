@@ -5,8 +5,48 @@
   text-length: 32;
 }
 
-#background {
-  width: 100%;
-  height: 100%;
-  fill: white;
+.tile-list-item {
+  height: 160;
+}
+
+#date-header {
+  height: 34;
+}
+
+.date-header-text {
+  x: 15;
+  font-size: 24;
+  font-family: Seville-Regular;
+  fill: fb-aqua;
+}
+
+.event-summary-section {
+  x: 15;
+  y: 7;
+  height: 34;
+  width: 318;
+}
+
+.event-summary-text {
+  font-size: 30;
+  font-family: Seville-Bold;
+  fill: #ffffff;
+}
+
+.event-summary-row-placeholder {
+  x: 15;
+  y: $;
+  height: 34;
+  width: 318;
+  display: none;
+}
+
+.event-location-text {
+  x: 15;
+  y: $;
+  font-size: 24;
+  font-family: Seville-Regular;
+  fill: #ffffff;
+  height: 34;
+  width: 318;
 }
