@@ -13,35 +13,45 @@
   height: 34;
 }
 
-.date-header-text {
+#date-header-text {
   x: 15;
   font-size: 24;
   font-family: Seville-Regular;
   fill: fb-aqua;
 }
 
-.event-summary-section {
+#event-time-text {
   x: 15;
   y: 7;
-  height: 34;
-  width: 318;
+  font-size: 22;
+  font-family: Seville-Regular;
+  height: 24;
+  width: 100%-30;
+  fill: #ffffff;
 }
 
-.event-summary-text {
+#event-summary-section {
+  x: 15;
+  y: $;
+  height: 34;
+  width: 100%-30;
+}
+
+#event-summary-text {
   font-size: 30;
   font-family: Seville-Bold;
   fill: #ffffff;
 }
 
-.event-summary-row-placeholder {
+#event-summary-row-placeholder {
   x: 15;
   y: $;
   height: 34;
-  width: 318;
+  width: 100%-30;
   display: none;
 }
 
-.event-location-text {
+#event-location-text {
   x: 15;
   y: $;
   font-size: 24;

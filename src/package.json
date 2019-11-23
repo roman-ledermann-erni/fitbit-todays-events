@@ -1,4 +1,12 @@
 {
+  "name": "todays-events",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "devDependencies": {
+    "@fitbit/sdk": "~4.0.1",
+    "@fitbit/sdk-cli": "^1.7.0"
+  },
   "fitbit": {
     "appUUID": "a0ff0d33-f064-4509-acaa-c6367aaf7d1e",
     "appType": "app",
@@ -20,7 +28,8 @@
     },
     "defaultLanguage": "en-US"
   },
-  "devDependencies": {
-    "@fitbit/sdk": "~3.1.0"
+  "scripts": {
+    "build": "fitbit-build",
+    "debug": "fitbit"
   }
 }

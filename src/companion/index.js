@@ -63,7 +63,6 @@ function sendEvents() {
           key: MESSAGE_KEY_EVENTS,
           message: event
         };
-        //console.log(new Date(event.start) + " " + event.summary);
         sendMessage(data);
       });
       let finishedMsg = { key: MESSAGE_KEY_UPDATE_FINISHED };

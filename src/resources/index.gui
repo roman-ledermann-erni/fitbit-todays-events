@@ -1,22 +1,23 @@
 <svg>
   <!-- Event date -->
   <symbol id="date-header" href="#tile-list-item" display="none">
-    <text id="date-header-text" class="date-header-text" text-anchor="start" text-length="16"/>
+    <text id="date-header-text" text-anchor="start" text-length="16"/>
   </symbol>
   
   <symbol id="event-item" href="#tile-list-item" pointer-events="visible" display="none">
-    <line x1="8" y1="6" x2="340" y2="6" stroke-width="10" fill="lightgrey" opacity="0.7" />
+    <line id="header-line" x1="8" y1="6" x2="340" y2="6" stroke-width="10" fill="lightgrey" opacity="0.7" />
     <rect x="0" y="7" width="100%" height="5" fill="black" />
-    <rect x="4" y="7" width="341" height="100%-14" fill="lightgrey" opacity="0.7" />
     
-    <section id="event-summary-section" class="event-summary-section">
-      <textarea id="event-summary" class="event-summary-text" width="100%" height="100%" text-overflow="ellipsis" text-length="128" />
+    <line id="footer-line" x1="8" y1="6" x2="340" y2="6" stroke-width="10" fill="lightgrey" opacity="0.7" />
+    <rect id="fotter-black" x="0" y="7" width="100%" height="5" fill="black" />
+    
+    <rect id="background-rect" x="4" y="7" width="341" height="100%-14" fill="lightgrey" opacity="0.7" />
+    <textarea id="event-time-text" text-length="128" />
+    <section id="event-summary-section">
+      <textarea id="event-summary-text" width="100%" height="100%" text-overflow="ellipsis" text-length="128" />
     </section>
-    <textarea id="event-summary-row-placeholder" class="event-summary-row-placeholder" />
-    <textarea id="event-location" class="event-location-text" text-overflow="ellipsis" text-length="128" />
-    
-    <line x1="8" y1="100%-6" x2="340" y2="100%-6" stroke-width="10" fill="lightgrey" opacity="0.7" />
-    <rect x="0" y="100%-12" width="100%" height="5" fill="black" />
+    <textarea id="event-summary-row-placeholder" />
+    <textarea id="event-location-text" text-overflow="ellipsis" text-length="128" />
   </symbol>
   
   <use id="event-list" href="#tile-list">
