@@ -19,7 +19,7 @@
     <textarea id="event-summary-row-placeholder" />
     <textarea id="event-location-text" text-overflow="ellipsis" text-length="128" />
   </symbol>
-  
+
   <use id="event-list" href="#tile-list">
     <var id="virtual" value="1" />
     <var id="separator-height-bottom" value="2" />
@@ -49,5 +49,9 @@
       <use id="event-item-pool[8]" href="#event-item" class="tile-list-item" />
       <use id="event-item-pool[9]" href="#event-item" class="tile-list-item" />
     </use>
+  </use>
+
+  <use id="update-button" href="#square-button" y="5" fill="fb-red">
+    <set href="#text" attributeName="text-buffer" to="Update now!" />
   </use>
 </svg>
