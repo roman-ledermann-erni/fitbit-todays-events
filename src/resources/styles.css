@@ -1,8 +1,12 @@
+.header-text {
+  fill: #ffffff;
+  font-family: Seville-Regular;
+}
+
 .defaultText {
   font-size: 32;
   font-family: System-Regular;
   font-weight: regular;
-  text-length: 32;
 }
 
 .tile-list-item {
@@ -17,7 +21,32 @@
   x: 15;
   font-size: 24;
   font-family: Seville-Regular;
-  fill: fb-aqua;
+  fill: #ffffff;
+}
+
+.rect-rounder {
+  x1: 9;
+  y1: 5;
+  x2: 339;
+  y2: 5;
+  stroke-width: 10;
+}
+
+#header-black {
+  y: 7;
+  height: 5;
+}
+
+#fotter-black {
+  y: 7;
+  height: 6;
+}
+
+#background-rect {
+  x: 4;
+  y: 7;
+  width: 341;
+  height: 100%-14;
 }
 
 #event-time-text {
@@ -59,4 +88,23 @@
   fill: #ffffff;
   height: 34;
   width: 318;
+}
+
+#calendar-identifier {
+  x1: 338;
+  y1: 5;
+  x2: 338;
+  y2: 100%-7;
+}
+
+#update-overlay {
+  display: none;
+}
+
+#spinner { 
+  x: 50%-25;
+  y: 50%-25;
+  width: 50;
+  height: 50;
+  fill: fb-white;
 }

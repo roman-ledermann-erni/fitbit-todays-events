@@ -56,8 +56,10 @@ function configureEventTile(tile, event) {
     }
 
     tile.getElementById("event-location-text").text = event.event.location;
-    tile.getElementById("background-rect").height += tile.getElementById("event-location-text").height - 1;
+    tile.getElementById("background-rect").height += tile.getElementById("event-location-text").height - 2;
     tileHeight += tile.getElementById("event-location-text").height;
+
+    tile.getElementById("calendar-identifier").style.fill = event.event.color;
 
     tile.getElementById("footer-line").y1 = tileHeight;
     tile.getElementById("footer-line").y2 = tileHeight;

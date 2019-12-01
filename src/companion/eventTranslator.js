@@ -1,13 +1,17 @@
+import { settingsStorage } from "settings";
 import { MAX_EVENT_COUNT } from "../common/globals.js";
 
 export class EventTranslator {
     constructor() { }
 
     translate(events, timezones, calendar, eventList) {
-        const today = new Date().setHours(0, 0, 0, 0);
+        var daysToShow = JSON.parse(settingsStorage.getItem("daysToShow"));
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        today.setDate(today.getDate() + parseInt(daysToShow.selected) + 1);
         events.forEach(evt => {
             fixDates(evt, timezones);
-            if (evt.end >= today) {
+            if (evt.start <= today) {
                 var translatedEvt = {
                     start: evt.start.getTime(),
                     end: evt.end === undefined ? evt.start.getTime() : evt.end.getTime(),
@@ -33,7 +37,6 @@ export class EventTranslator {
 function fixDates(evt, timezones) {
     let tzStart = timezones[evt.tzidstart];
     let tzEnd = timezones[evt.tzidend];
-    let today = new Date();
 
     if (tzStart) {
         let offset = parseInt(tzStart["DAYLIGHT"].tzoffsetto) / 100;

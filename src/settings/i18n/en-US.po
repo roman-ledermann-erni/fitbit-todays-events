@@ -1,3 +1,6 @@
+msgid "settings.generalsection.title"
+msgstr "General"
+
 msgid "settings.calsection.title"
 msgstr "Calendars"
 

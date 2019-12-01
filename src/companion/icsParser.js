@@ -46,11 +46,14 @@ export class IcsParser {
     }
 
     getEvents(records) {
+        const today = new Date().setHours(0, 0, 0, 0);
         var events = [];
         for (let packedEvent in records) {
             if (records.hasOwnProperty(packedEvent) && records[packedEvent].type === 'VEVENT') {
                 var unpacked = records[packedEvent];
-                events.push(unpacked);
+                if (unpacked.end >= today) {
+                    events.push(unpacked);
+                }
             }
         }
         return events;
