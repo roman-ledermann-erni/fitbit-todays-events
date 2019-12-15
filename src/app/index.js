@@ -4,17 +4,28 @@ import * as messaging from "messaging";
 import { gettext } from "i18n";
 import { EventListCreator } from "./eventListCreator.js";
 import { EventListRenderer } from "./eventListRenderer.js";
-import { MESSAGE_KEY_UPDATE, MESSAGE_KEY_ERROR, MESSAGE_KEY_CLEAR_EVENTS, MESSAGE_KEY_EVENTS, MESSAGE_KEY_UPDATE_FINISHED, EVENT_DATA_FILE } from "../common/globals.js";
+import { MESSAGE_KEY_UPDATE, MESSAGE_KEY_ERROR, MESSAGE_KEY_EVENTS_LOADED, MESSAGE_KEY_EVENT, MESSAGE_KEY_UPDATE_STARTED, MESSAGE_KEY_UPDATE_FINISHED, EVENT_DATA_FILE } from "../common/globals.js";
 
 // Initialization
 let listCreator = new EventListCreator();
 let listRenderer = new EventListRenderer();
+const detailOverlay = document.getElementById("detail-overlay");
 
+document.onkeypress = function(event) {
+    if (detailOverlay.style.display == "inline") {
+        if (event.key == "back") {
+            detailOverlay.style.display = "none";
+            event.preventDefault();
+        }
+    }
+}
 
 document.getElementById("header-container").onclick = () => {
-    console.log("Update");
-    let msg = { key: MESSAGE_KEY_UPDATE };
-    sendMessage(msg);
+    sendMessage({ key: MESSAGE_KEY_UPDATE });
+}
+
+document.getElementById("detail-back-btn").onclick = () => {
+    detailOverlay.style.display = "none";
 }
 
 if (fs.existsSync(EVENT_DATA_FILE)) {
@@ -27,11 +38,13 @@ if (fs.existsSync(EVENT_DATA_FILE)) {
 // Message is received
 messaging.peerSocket.onmessage = evt => {
     console.log(`App received: ${JSON.stringify(evt)}`);
-    if (evt.data.key === MESSAGE_KEY_CLEAR_EVENTS) {
+    if (evt.data.key === MESSAGE_KEY_UPDATE_STARTED) {
         showSpinner();
+    }
+    if (evt.data.key === MESSAGE_KEY_EVENTS_LOADED) {
         listCreator.clearEvents();
     }
-    if (evt.data.key === MESSAGE_KEY_EVENTS) {
+    if (evt.data.key === MESSAGE_KEY_EVENT) {
         listCreator.addEvent(evt.data.message);
     }
     if (evt.data.key === MESSAGE_KEY_UPDATE_FINISHED) {

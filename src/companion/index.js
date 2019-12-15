@@ -3,7 +3,12 @@ import { settingsStorage } from "settings";
 import { CalendarDataLoader } from "./calendarDataLoader.js";
 import { IcsParser } from "./icsParser.js";
 import { EventTranslator } from "./eventTranslator.js";
-import { MESSAGE_KEY_UPDATE, MESSAGE_KEY_ERROR, MESSAGE_KEY_CLEAR_EVENTS, MESSAGE_KEY_EVENTS, MESSAGE_KEY_UPDATE_FINISHED } from "../common/globals.js";
+import { MESSAGE_KEY_UPDATE, 
+         MESSAGE_KEY_ERROR, 
+         MESSAGE_KEY_EVENTS_LOADED, 
+         MESSAGE_KEY_EVENT,
+         MESSAGE_KEY_UPDATE_STARTED, 
+         MESSAGE_KEY_UPDATE_FINISHED } from "../common/globals.js";
 
 // Message socket opens
 messaging.peerSocket.onopen = () => {
@@ -14,11 +19,12 @@ messaging.peerSocket.onopen = () => {
 messaging.peerSocket.onmessage = evt => {
     console.log(JSON.stringify(evt.data));
     if (evt.data.key === MESSAGE_KEY_UPDATE) {
+        sendMessage({key: MESSAGE_KEY_UPDATE_STARTED});
         loadEvents().then(function (events) {
-            sendMessage({ key: MESSAGE_KEY_CLEAR_EVENTS });
+            sendMessage({ key: MESSAGE_KEY_EVENTS_LOADED });
             events.forEach(event => {
                 let data = {
-                    key: MESSAGE_KEY_EVENTS,
+                    key: MESSAGE_KEY_EVENT,
                     message: event
                 };
                 sendMessage(data);
@@ -30,8 +36,18 @@ messaging.peerSocket.onmessage = evt => {
 
 // A user changes settings
 settingsStorage.onchange = evt => {
-    clearEvents();
-    sendEvents();
+    sendMessage({ key: MESSAGE_KEY_UPDATE_STARTED });
+    loadEvents().then(function (events) {
+        sendMessage({ key: MESSAGE_KEY_EVENTS_LOADED });
+        events.forEach(event => {
+            let data = {
+                key: MESSAGE_KEY_EVENT,
+                message: event
+            };
+            sendMessage(data);
+        });
+        sendMessage({ key: MESSAGE_KEY_UPDATE_FINISHED });
+    });
 };
 
 // Send data to device using Messaging API
@@ -66,45 +82,5 @@ function loadEvents() {
                 resolve(combinedEvents);
             }
         });
-    });
-}
-
-function clearEvents() {
-    let msg = {
-        key: MESSAGE_KEY_CLEAR_EVENTS,
-    };
-    sendMessage(msg);
-}
-
-function sendEvents() {
-    let parser = new IcsParser();
-    let loader = new CalendarDataLoader();
-    let translator = new EventTranslator();
-    loader.loadCalendars().then(function (calendars) {
-        if (loader.errors.length > 0) {
-            let errorData = {
-                key: MESSAGE_KEY_ERROR,
-                message: loader.errors
-            };
-            sendMessage(errorData);
-        } else {
-            var combinedEvents = [];
-            calendars.forEach(cal => {
-                let records = parser.parseICS(cal.data);
-                let timezones = parser.getTimezones(records);
-                let events = parser.getEvents(records);
-                translator.translate(events, timezones, cal, combinedEvents);
-            });
-            combinedEvents = translator.limit(combinedEvents);
-            combinedEvents.forEach(event => {
-                let data = {
-                    key: MESSAGE_KEY_EVENTS,
-                    message: event
-                };
-                sendMessage(data);
-            });
-            let finishedMsg = { key: MESSAGE_KEY_UPDATE_FINISHED };
-            sendMessage(finishedMsg);
-        }
     });
 }

@@ -24,6 +24,11 @@ export class EventListRenderer {
                 }
                 else if (info.type === "event-item-pool") {
                     configureEventTile(tile, info);
+                    tile.onclick = function () {
+                        let overlay = document.getElementById("detail-overlay")
+                        loadOverlay(overlay, tile);
+                        overlay.style.display = "inline";
+                    };
                 }
             }
         };
@@ -67,6 +72,13 @@ function configureEventTile(tile, event) {
     tile.getElementById("fotter-black").y = tileHeight - tile.getElementById("fotter-black").height;
     tileHeight += tile.getElementById("fotter-black").height;
     tile.height = tileHeight + 2;
+}
+
+function loadOverlay(overlay, tile) {
+    overlay.getElementById("detail-overlay-summary-text").text = tile.getElementById("event-summary-text").text;
+    overlay.getElementById("detail-overlay-summary-text").style.fill = tile.getElementById("calendar-identifier").style.fill;
+    overlay.getElementById("detail-overlay-location-text").text = tile.getElementById("event-location-text").text;
+    overlay.getElementById("detail-overlay-time-text").text = tile.getElementById("event-time-text").text;
 }
 
 function toTwoDigit(num) { return ("0" + num).slice(-2); }

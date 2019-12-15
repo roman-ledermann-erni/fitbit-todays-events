@@ -108,3 +108,16 @@
   height: 50;
   fill: fb-white;
 }
+
+.detail-overlay-header-text {
+  font-size: 30;
+  font-family: Seville-Bold;
+  text-length: 128;
+}
+
+.detail-overlay-normal-text {
+  font-size: 26;
+  font-family: Seville-Regular;
+  fill: #ffffff;
+  text-length: 128;
+}

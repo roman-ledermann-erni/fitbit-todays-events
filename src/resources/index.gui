@@ -63,4 +63,30 @@
         <rect x="0" y="0" width="100%" height="100%" fill="#404040" opacity="0.5" />
         <use id="update-spinner" href="#spinner" />
     </svg>
+
+    <svg id="detail-overlay" x="0" y="0" width="100%" height="100%" pointer-events="visible" display="none">
+        <rect x="0" y="0" width="100%" height="100%" fill="#0f0f0f"/>
+        <use href="#scrollview" x="0" y="0" width="100%" height="100%">
+            <use href="#scrollview-item" id="detail-overlay-item" height="100%">
+                <use id="detail-overlay-summary-text" class="detail-overlay-header-text" x="10" y="10" width="100%-20" href="#dynamic-textarea" overflow="visible">
+                    <set href="#text" attributeName="text-buffer" to="Summary"/>
+                    <set href='#text' attributeName='font-size' to='inherit'/>
+                    <set href='#text' attributeName='text-length' to='128'/>
+                </use>
+                <use id="detail-overlay-location-text" class="detail-overlay-normal-text" x="10" y="$+5" width="100%-20" href="#dynamic-textarea" overflow="visible">
+                    <set href="#text" attributeName="text-buffer" to="Location"/>
+                    <set href='#text' attributeName='font-size' to='inherit'/>
+                    <set href='#text' attributeName='text-length' to='128'/>
+                </use>
+                <use id="detail-overlay-time-text" class="detail-overlay-normal-text" x="10" y="$+5" width="100%-20" href="#dynamic-textarea" overflow="visible">
+                    <set href="#text" attributeName="text-buffer" to="Time"/>
+                    <set href='#text' attributeName='font-size' to='inherit'/>
+                    <set href='#text' attributeName='text-length' to='128'/>
+                </use>
+                <use href="#square-button-neutral" id="detail-back-btn" y="$+10">
+                    <set href="#text" attributeName="text-buffer" to="Back" />
+                </use>
+            </use>
+        </use>
+    </svg>
 </svg>
