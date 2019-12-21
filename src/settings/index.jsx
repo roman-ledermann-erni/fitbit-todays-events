@@ -2,14 +2,12 @@ import { gettext } from "i18n";
 
 function mySettings(props) {
     if (props.settingsStorage.getItem("updateInterval") === undefined) {
-        props.settingsStorage.setItem("updateInterval", JSON.stringify({"selected":[1]}));
+        props.settingsStorage.setItem("updateInterval", JSON.stringify({"values":[{"value":60}],"selected":[1]}));
     }
 
     if (props.settingsStorage.getItem("calendarList") === undefined) {
         props.settingsStorage.setItem("calendarList", "[]");
     }
-
-    console.log(props.settingsStorage.getItem("updateInterval"));
 
     var calSettings = [];
     var calendars = JSON.parse(props.settingsStorage.getItem("calendarList"));
