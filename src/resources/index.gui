@@ -1,7 +1,7 @@
 <svg>
     <!-- Event date -->
     <symbol id="date-header" href="#tile-list-item" display="none">
-        <text id="date-header-text" text-anchor="start" text-length="16"/>
+        <text id="date-header-text" text-anchor="middle" text-length="32" width="100%" />
     </symbol>
 
     <symbol id="event-item" href="#tile-list-item" pointer-events="visible" display="none">
@@ -13,6 +13,7 @@
 
         <rect id="background-rect" x="4" y="7" width="341" height="100%-14" fill="lightgrey" opacity="0.3" />
         <textarea id="event-time-text" text-length="128" />
+        <textarea id="event-duration-text" text-length="128" />
         <section id="event-summary-section">
             <textarea id="event-summary-text" width="100%" height="100%" text-overflow="ellipsis" text-length="128" />
         </section>
@@ -22,21 +23,26 @@
         <line id="calendar-identifier" x1="338" y1="5" x2="338" y2="100%-7" stroke-width="2" stroke-linecap="round" />
     </symbol>
 
-    <use id="event-list" href="#tile-list" y="40" width="100%" height="100%-40">
+    <symbol id="list-footer" href="#tile-list-item" display="none">
+        <text id="last-update-text" class="header-text" x="15" y="30" text-length="32" text-anchor="middle" />
+        <!-- <image id="update-img" x="100%-40" y="-2" width="40" height="40" href="btn_combo_reset_p.png" fill="white" /> -->
+    </symbol>
+
+    <use id="event-list" href="#tile-list" y="0" width="100%" height="100%">
         <var id="virtual" value="1" />
         <var id="separator-height-bottom" value="2" />
 
         <use id="date-header-pool" href="#tile-list-pool">
-            <use href="#date-header" id="date-header-pool[1]"></use>
-            <use href="#date-header" id="date-header-pool[2]"></use>
-            <use href="#date-header" id="date-header-pool[3]"></use>
-            <use href="#date-header" id="date-header-pool[4]"></use>
-            <use href="#date-header" id="date-header-pool[5]"></use>
-            <use href="#date-header" id="date-header-pool[6]"></use>
-            <use href="#date-header" id="date-header-pool[7]"></use>
-            <use href="#date-header" id="date-header-pool[8]"></use>
-            <use href="#date-header" id="date-header-pool[9]"></use>
-            <use href="#date-header" id="date-header-pool[10]"></use>
+            <use id="date-header-pool[0]" href="#date-header" />
+            <use id="date-header-pool[1]" href="#date-header" />
+            <use id="date-header-pool[2]" href="#date-header" />
+            <use id="date-header-pool[3]" href="#date-header" />
+            <use id="date-header-pool[4]" href="#date-header" />
+            <use id="date-header-pool[5]" href="#date-header" />
+            <use id="date-header-pool[6]" href="#date-header" />
+            <use id="date-header-pool[7]" href="#date-header" />
+            <use id="date-header-pool[8]" href="#date-header" />
+            <use id="date-header-pool[9]" href="#date-header" />
         </use>
 
         <use id="event-item-pool" href="#tile-list-pool">
@@ -51,13 +57,20 @@
             <use id="event-item-pool[8]" href="#event-item" class="tile-list-item" />
             <use id="event-item-pool[9]" href="#event-item" class="tile-list-item" />
         </use>
-    </use>
 
-    <svg id="header-container" x="0" y="0" width="100%" height="40" pointer-events="visible">
-        <rect id="header" x="0" y="0" width="100%" height="100%" fill="#404040" />
-        <text id="app-title" class="header-text" x="15" y="30" text-length="20" text-anchor="start">Today's Events</text>
-        <image id="update-img" x="100%-40" y="-2" width="40" height="40" href="btn_combo_reset_p.png" fill="white" />
-    </svg>
+        <use id="list-footer-pool" href="#tile-list-pool">
+            <use id="list-footer-pool[0]" href="#list-footer" />
+            <use id="list-footer-pool[1]" href="#list-footer" />
+            <use id="list-footer-pool[2]" href="#list-footer" />
+            <use id="list-footer-pool[3]" href="#list-footer" />
+            <use id="list-footer-pool[4]" href="#list-footer" />
+            <use id="list-footer-pool[5]" href="#list-footer" />
+            <use id="list-footer-pool[6]" href="#list-footer" />
+            <use id="list-footer-pool[7]" href="#list-footer" />
+            <use id="list-footer-pool[8]" href="#list-footer" />
+            <use id="list-footer-pool[9]" href="#list-footer" />
+        </use>
+    </use>
 
     <svg id="update-overlay" x="0" y="0" width="100%" height="100%" pointer-events="visible">
         <rect x="0" y="0" width="100%" height="100%" fill="#404040" opacity="0.5" />

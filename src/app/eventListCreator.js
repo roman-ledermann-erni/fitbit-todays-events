@@ -30,10 +30,11 @@ export class EventListCreator {
                         });
                         headerDayAdded = true;
                     }
-                    tileList.push({ type: "event-item-pool", event: event, });
+                    tileList.push({ type: "event-item-pool", event: event });
                 }
             });
         }
+        tileList.push({ type: "list-footer-pool" });
         return tileList;
     }
 };

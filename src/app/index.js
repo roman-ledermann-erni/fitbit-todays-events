@@ -1,10 +1,16 @@
 import fs from "fs";
 import document from "document";
 import * as messaging from "messaging";
-import { gettext } from "i18n";
 import { EventListCreator } from "./eventListCreator.js";
 import { EventListRenderer } from "./eventListRenderer.js";
-import { MESSAGE_KEY_UPDATE, MESSAGE_KEY_ERROR, MESSAGE_KEY_EVENTS_LOADED, MESSAGE_KEY_EVENT, MESSAGE_KEY_UPDATE_STARTED, MESSAGE_KEY_UPDATE_FINISHED, EVENT_DATA_FILE } from "../common/globals.js";
+import { MESSAGE_KEY_UPDATE,
+     MESSAGE_KEY_ERROR, 
+     MESSAGE_KEY_EVENTS_LOADED, 
+     MESSAGE_KEY_EVENT, 
+     MESSAGE_KEY_UPDATE_STARTED, 
+     MESSAGE_KEY_UPDATE_FINISHED, 
+     EVENT_DATA_FILE,
+     LAST_UPDATE_FILE } from "../common/globals.js";
 
 // Initialization
 let listCreator = new EventListCreator();
@@ -18,10 +24,6 @@ document.onkeypress = function(event) {
             event.preventDefault();
         }
     }
-}
-
-document.getElementById("header-container").onclick = () => {
-    sendMessage({ key: MESSAGE_KEY_UPDATE });
 }
 
 document.getElementById("detail-back-btn").onclick = () => {
@@ -49,9 +51,11 @@ messaging.peerSocket.onmessage = evt => {
     }
     if (evt.data.key === MESSAGE_KEY_UPDATE_FINISHED) {
         let eventList = listCreator.createTileList();
+        eventList.forEach(i => console.log(JSON.stringify(i)));
         listRenderer.renderList(eventList);
         hideSpinner();
         fs.writeFileSync(EVENT_DATA_FILE, eventList, "cbor");
+        fs.writeFileSync(LAST_UPDATE_FILE, new Date().getTime().toString(), "ascii");
     }
 };
 

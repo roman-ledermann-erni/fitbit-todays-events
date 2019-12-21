@@ -37,3 +37,6 @@ msgid "month10"
 msgstr "Nov"
 msgid "month11"
 msgstr "Dec"
+
+msgid "lastUpdate"
+msgstr "Last updated {duration} ago"

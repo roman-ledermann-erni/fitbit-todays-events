@@ -59,14 +59,16 @@ function getCalendarsFromSettings() {
     let calendars = [];
     let calNames = JSON.parse(settingsStorage.getItem("calendarList"));
     for (let counter = 0; counter < calNames.length; counter++) {
-        let calUrl = JSON.parse(settingsStorage.getItem("calUrl" + calNames[counter].name));
-        let calColor = JSON.parse(settingsStorage.getItem("calColor" + calNames[counter].name));
-        let cal = { 
-            name: calNames[counter].name,
-            url: calUrl !== null ? calUrl.name : null,
-            color: calColor
-        };
-        calendars.push(cal);
+        let calUrl = settingsStorage.getItem("calUrl" + calNames[counter].name);
+        let calColor = settingsStorage.getItem("calColor" + calNames[counter].name)
+        if (calUrl != null && calColor != null) {
+            let cal = { 
+                name: calNames[counter].name,
+                url: calUrl !== null ? JSON.parse(calUrl).name : null,
+                color: JSON.parse(calColor)
+            };
+            calendars.push(cal);
+        }
     }
     return calendars;
 };

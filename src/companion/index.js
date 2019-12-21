@@ -69,7 +69,7 @@ function loadEvents() {
 
         loader.loadEvents().then(function (events) {
             localStorage.setItem("events", JSON.stringify(events));
-            localStorage.setItem("errors", JSON.stringify(events));
+            localStorage.setItem("errors", JSON.stringify(loader.errors));
     
             let updateInterval = getUpdateInterval();
             companion.wakeInterval = updateInterval * MILLISECONDS_PER_MINUTE;

@@ -14,12 +14,11 @@
 }
 
 #date-header {
-  height: 34;
+  height: 44;
 }
 
 #date-header-text {
-  x: 15;
-  font-size: 24;
+  font-size: 34;
   font-family: Seville-Regular;
   fill: #ffffff;
 }
@@ -55,7 +54,17 @@
   font-size: 22;
   font-family: Seville-Regular;
   height: 24;
-  width: 100%-30;
+  width: 50%;
+  fill: #ffffff;
+}
+
+#event-duration-text {
+  x: 270;
+  y: 7;
+  font-size: 22;
+  font-family: Seville-Regular;
+  height: 24;
+  width: 50%;
   fill: #ffffff;
 }
 
@@ -95,6 +104,16 @@
   y1: 5;
   x2: 338;
   y2: 100%-7;
+}
+
+#list-footer {
+  height: 44;
+}
+
+#last-update-text {
+  font-size: 24;
+  font-family: Seville-Regular;
+  fill: #ffffff;
 }
 
 #update-overlay {
