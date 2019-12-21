@@ -71,14 +71,13 @@ function loadEvents() {
                 };
                 sendMessage(errorData);
             } else {
-                var combinedEvents = [];
+                let combinedEvents = [];
                 calendars.forEach(cal => {
                     let records = parser.parseICS(cal.data);
                     let timezones = parser.getTimezones(records);
-                    let events = parser.getEvents(records);
+                    let events = parser.getEvents(records, 5);
                     translator.translate(events, timezones, cal, combinedEvents);
                 });
-                combinedEvents = translator.limit(combinedEvents);
                 resolve(combinedEvents);
             }
         });

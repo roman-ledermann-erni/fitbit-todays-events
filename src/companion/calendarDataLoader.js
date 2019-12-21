@@ -40,21 +40,16 @@ CalendarDataLoader.prototype.errors = [];
 /* Private methods */
 function getCalendarsFromSettings() {
     let calendars = [];
-    let counter = 0;
-
-    let calName = null;
-    let calUrl = null;
-    let calColor = null;
-    do {
-        calName = JSON.parse(settingsStorage.getItem(`cal${counter}Name`));
-        calUrl = JSON.parse(settingsStorage.getItem(`cal${counter}Url`));
-        calColor = JSON.parse(settingsStorage.getItem(`cal${counter}Color`));
-
-        if (counter < 5 && calUrl !== undefined && calUrl !== null) {
-            var cal = { name: calName.name, url: calUrl.name, color: calColor };
-            calendars.push(cal);
-        }
-        counter++;
-    } while (counter < 5 && calUrl !== undefined && calUrl !== null);
+    let calNames = JSON.parse(settingsStorage.getItem("calendarList"));
+    for (let counter = 0; counter < calNames.length; counter++) {
+        let calUrl = JSON.parse(settingsStorage.getItem("calUrl" + calNames[counter].name));
+        let calColor = JSON.parse(settingsStorage.getItem("calColor" +calNames[counter].name));
+        let cal = { 
+            name: calNames[counter].name,
+            url: calUrl.name,
+            color: calColor
+        };
+        calendars.push(cal);
+    }
     return calendars;
 };

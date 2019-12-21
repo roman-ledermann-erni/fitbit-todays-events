@@ -45,13 +45,17 @@ export class IcsParser {
         return timezones;
     }
 
-    getEvents(records) {
-        const today = new Date().setHours(0, 0, 0, 0);
-        var events = [];
+    getEvents(records, lookaheadDays) {
+        let today = new Date();
+        let lookahead = new Date();
+        today.setHours(0, 0, 0, 0);
+        lookahead.setHours(0, 0, 0, 0);
+        lookahead.setDate(lookahead.getDate() + lookaheadDays);
+        let events = [];
         for (let packedEvent in records) {
             if (records.hasOwnProperty(packedEvent) && records[packedEvent].type === 'VEVENT') {
-                var unpacked = records[packedEvent];
-                if (unpacked.end >= today) {
+                let unpacked = records[packedEvent]
+                if (+unpacked.end >= +today && +unpacked.end <= +lookahead) {
                     events.push(unpacked);
                 }
             }

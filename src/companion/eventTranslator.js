@@ -1,35 +1,21 @@
-import { settingsStorage } from "settings";
-import { MAX_EVENT_COUNT } from "../common/globals.js";
 
 export class EventTranslator {
     constructor() { }
 
     translate(events, timezones, calendar, eventList) {
-        var daysToShow = JSON.parse(settingsStorage.getItem("daysToShow"));
-        var today = new Date();
-        today.setHours(0, 0, 0, 0);
-        today.setDate(today.getDate() + parseInt(daysToShow.selected) + 1);
         events.forEach(evt => {
             fixDates(evt, timezones);
-            if (evt.start <= today) {
-                var translatedEvt = {
-                    start: evt.start.getTime(),
-                    end: evt.end === undefined ? evt.start.getTime() : evt.end.getTime(),
-                    allDay: evt.allDay !== undefined ? evt.allDay : false,
-                    summary: evt.summary,
-                    location: evt.location === undefined ? "" : evt.location,
-                    cal: calendar.name,
-                    color: calendar.color,
-                };
-                eventList.push(translatedEvt);
-            }
+            var translatedEvt = {
+                start: evt.start.getTime(),
+                end: evt.end === undefined ? evt.start.getTime() : evt.end.getTime(),
+                allDay: evt.allDay !== undefined ? evt.allDay : false,
+                summary: evt.summary,
+                location: evt.location === undefined ? "" : evt.location,
+                cal: calendar.name,
+                color: calendar.color,
+            };
+            eventList.push(translatedEvt);
         });
-    }
-
-    limit(events) {
-        events.sort(function (a, b) { return a.start - b.start; });
-        events = events.slice(0, MAX_EVENT_COUNT);
-        return events;
     }
 };
 

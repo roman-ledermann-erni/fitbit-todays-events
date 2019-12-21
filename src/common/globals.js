@@ -1,4 +1,3 @@
-export const MAX_EVENT_COUNT = 15;
 export const MESSAGE_KEY_UPDATE = "update";
 export const MESSAGE_KEY_ERROR = "error";
 export const MESSAGE_KEY_EVENTS_LOADED = "eventsLoaded";

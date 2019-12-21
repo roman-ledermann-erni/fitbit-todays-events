@@ -1,14 +1,26 @@
 msgid "settings.generalsection.title"
 msgstr "General"
 
+msgid "settings.generalsection.updateInterval"
+msgstr "Synchronization Interval"
+
+msgid "settings.generalsection.halfhourInterval"
+msgstr "Every 30 minutes"
+
+msgid "settings.generalsection.hourInterval"
+msgstr "Every hour"
+
+msgid "settings.generalsection.twohourInterval"
+msgstr "Every two hours"
+
+msgid "settings.generalsection.threehourInterval"
+msgstr "Every three hours"
+
+msgid "settings.generalsection.sixhourInterval"
+msgstr "Every six hours"
+
 msgid "settings.calsection.title"
 msgstr "Calendars"
-
-msgid "settings.calendar.title"
-msgstr "Calendar"
-
-msgid "settings.calendar.name"
-msgstr "Name"
 
 msgid "settings.calendar.url"
 msgstr "URL"
