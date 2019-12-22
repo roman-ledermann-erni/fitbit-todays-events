@@ -3,7 +3,8 @@ import fs from "fs";
 import * as messaging from "messaging";
 import { gettext } from "i18n";
 import { LAST_UPDATE_FILE } from "../common/globals.js";
-import { stringify } from "querystring";
+import * as elements from "../common/ui.js";
+import * as msgTypes from "../common/messages.js";
 
 export class EventListRenderer {
     constructor() {
@@ -13,7 +14,7 @@ export class EventListRenderer {
     renderList(events) {
         let self = this;
         this.eventList = events;
-        let tileList = document.getElementById("event-list");
+        let tileList = document.getElementById(elements.EVENT_LIST_ELEMENT);
         tileList.delegate = {
             getTileInfo: function (index) {
                 let event = self.eventList[index];
@@ -21,30 +22,30 @@ export class EventListRenderer {
                 return event;
             },
             configureTile: function (tile, info) {
-                if (info.type === "date-header-pool") {
+                if (info.type === elements.EVENT_LIST_HEADER_TYPE) {
                     let headerDate = new Date(info.date);
                     let dateStr = gettext("weekday" + headerDate.getDay()) + ", " + headerDate.getDate() + " " + gettext("month" + headerDate.getMonth());
-                    tile.getElementById("date-header-text").text = dateStr;
-                } else if (info.type === "event-item-pool") {
+                    tile.getElementById(elements.HEADER_DATE_ELEMENT).text = dateStr;
+                } else if (info.type === elements.EVENT_LIST_EVENT_TYPE) {
                     configureEventTile(tile, info);
                     tile.onclick = function () {
-                        let overlay = document.getElementById("detail-overlay")
+                        let overlay = document.getElementById(elements.OVERLAY_ELEMENT)
                         loadOverlay(overlay, tile);
                         overlay.style.display = "inline";
                     };
-                } else if (info.type === "list-footer-pool") {
+                } else if (info.type === elements.EVENT_LIST_FOOTER_TYPE) {
                     if (fs.existsSync(LAST_UPDATE_FILE)) {
                         let lastUpdate = parseInt(fs.readFileSync(LAST_UPDATE_FILE, "ascii"));
                         let duration = formatDuration(new Date(lastUpdate), new Date());
                         let message = gettext("lastUpdate");
                         message = message.replace("{duration}", duration);
-                        tile.getElementById("last-update-text").text = message;
+                        tile.getElementById(elements.LAST_UPDATE_ELEMENT).text = message;
                     }
-                    // tile.onclick = function () {
-                    //     if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-                    //         messaging.peerSocket.send({ key: MESSAGE_KEY_UPDATE });
-                    //     }
-                    // }
+                    tile.onclick = function () {
+                        if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
+                            messaging.peerSocket.send({ key: msgTypes.MESSAGE_KEY_UPDATE });
+                        }
+                    }
                 }
             }
         };
@@ -55,48 +56,60 @@ export class EventListRenderer {
 
 /* Private methods */
 function configureEventTile(tile, event) {
-    let tileHeight = tile.getElementById("header-line").y1;
-    if (event.event.allDay === false) {
-        tile.getElementById("event-time-text").text = formatTime(new Date(event.event.start));
-        tile.getElementById("event-duration-text").text = formatDuration(event.event.start, event.event.end);
-    } else {
-        tile.getElementById("event-time-text").height = 0;
-        tile.getElementById("event-duration-text").height = 0;
-    }
-    tile.getElementById("background-rect").height = tile.getElementById("event-time-text").height
-    tileHeight += tile.getElementById("event-time-text").height;
+    let timeHeight = configureEventTime(tile, event.event);
+    let summaryHeight = configureEventSummary(tile, event.event);
+    let locationHeight = configureEventLocation(tile, event.event);
+    tile.getElementById(elements.CALENDAR_ID_ELEMENT).style.fill = event.event.color;
 
-    let summary = tile.getElementById("event-summary-text");
-    summary.text = event.event.summary;
-    tile.getElementById("event-summary-row-placeholder").style.display = "none";
-    tile.getElementById("background-rect").height += tile.getElementById("event-summary-row-placeholder").height;
-    tileHeight += tile.getElementById("event-summary-row-placeholder").height;
-    if (summary.textOverflowing) {
-        summary.height = tile.getElementById("event-summary-row-placeholder").height * 2;
-        tile.getElementById("event-summary-row-placeholder").style.display = "inline";
-        tile.getElementById("background-rect").height += tile.getElementById("event-summary-row-placeholder").height;
-        tileHeight += tile.getElementById("event-summary-row-placeholder").height;
-    }
+    let tileHeight = tile.getElementById(elements.HEADER_LINE_ELEMENT).y1;
+    tileHeight += timeHeight;
+    tileHeight += summaryHeight;
+    tileHeight += locationHeight;
 
-    tile.getElementById("event-location-text").text = event.event.location;
-    tile.getElementById("background-rect").height += tile.getElementById("event-location-text").height - 2;
-    tileHeight += tile.getElementById("event-location-text").height;
+    tile.getElementById(elements.FOOTER_LINE_ELEMENT).y1 = tileHeight;
+    tile.getElementById(elements.FOOTER_LINE_ELEMENT).y2 = tileHeight;
 
-    tile.getElementById("calendar-identifier").style.fill = event.event.color;
-
-    tile.getElementById("footer-line").y1 = tileHeight;
-    tile.getElementById("footer-line").y2 = tileHeight;
-
-    tile.getElementById("fotter-black").y = tileHeight - tile.getElementById("fotter-black").height;
-    tileHeight += tile.getElementById("fotter-black").height;
+    tile.getElementById(elements.FOOTER_BLACK_ELEMENT).y = tileHeight - tile.getElementById(elements.FOOTER_BLACK_ELEMENT).height;
+    tileHeight += tile.getElementById(elements.FOOTER_BLACK_ELEMENT).height;
     tile.height = tileHeight + 2;
 }
 
+function configureEventTime(tile, event) {
+    if (event.allDay === false) {
+        tile.getElementById(elements.EVENT_TIME_ELEMENT).style.display = "inline";
+        tile.getElementById(elements.EVENT_DURATION_ELEMENT).style.display = "inline";
+        tile.getElementById(elements.EVENT_TIME_ELEMENT).text = formatTime(new Date(event.start));
+        tile.getElementById(elements.EVENT_DURATION_ELEMENT).text = formatDuration(event.start, event.end);
+        return tile.getElementById(elements.EVENT_TIME_ELEMENT).height;
+    } else {
+        tile.getElementById(elements.EVENT_TIME_ELEMENT).style.display = "none";
+        tile.getElementById(elements.EVENT_DURATION_ELEMENT).style.display = "none";
+        return 0;
+    }
+}
+
+function configureEventSummary(tile, event) {
+    tile.getElementById(elements.EVENT_SUMMARY_ELEMENT).text = event.summary;
+    tile.getElementById(elements.EVENT_SUMMARY_PLACEHOLDER).style.display = "none";
+    let summaryHeight = tile.getElementById(elements.EVENT_SUMMARY_PLACEHOLDER).height;
+    if (tile.getElementById(elements.EVENT_SUMMARY_ELEMENT).textOverflowing) {
+        tile.getElementById(elements.EVENT_SUMMARY_ELEMENT).height = tile.getElementById(elements.EVENT_SUMMARY_PLACEHOLDER).height * 2;
+        tile.getElementById(elements.EVENT_SUMMARY_PLACEHOLDER).style.display = "inline";
+        summaryHeight += tile.getElementById(elements.EVENT_SUMMARY_PLACEHOLDER).height;
+    }
+    return summaryHeight;
+}
+
+function configureEventLocation(tile, event) {
+    tile.getElementById(elements.EVENT_LOCATION_ELEMENT).text = event.location;
+    return tile.getElementById(elements.EVENT_LOCATION_ELEMENT).height - 2;
+}
+
 function loadOverlay(overlay, tile) {
-    overlay.getElementById("detail-overlay-summary-text").text = tile.getElementById("event-summary-text").text;
-    overlay.getElementById("detail-overlay-summary-text").style.fill = tile.getElementById("calendar-identifier").style.fill;
-    overlay.getElementById("detail-overlay-location-text").text = tile.getElementById("event-location-text").text;
-    overlay.getElementById("detail-overlay-time-text").text = tile.getElementById("event-time-text").text;
+    overlay.getElementById(elements.OVERLAY_SUMMARY_ELEMENT).text = tile.getElementById(elements.EVENT_SUMMARY_ELEMENT).text;
+    overlay.getElementById(elements.OVERLAY_SUMMARY_ELEMENT).style.fill = tile.getElementById(elements.CALENDAR_ID_ELEMENT).style.fill;
+    overlay.getElementById(elements.OVERLAY_LOCATION_ELEMENT).text = tile.getElementById(elements.EVENT_LOCATION_ELEMENT).text;
+    overlay.getElementById(elements.OVERLAY_TIME_ELEMENT).text = tile.getElementById(elements.EVENT_TIME_ELEMENT).text;
 }
 
 function toTwoDigit(num) { return ("0" + num).slice(-2); }

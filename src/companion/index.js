@@ -3,13 +3,8 @@ import { me as companion } from "companion";
 import { settingsStorage } from "settings";
 import { localStorage } from "local-storage";
 import { CalendarDataLoader } from "./calendarDataLoader.js";
-import { MESSAGE_KEY_UPDATE, 
-         MESSAGE_KEY_ERROR, 
-         MESSAGE_KEY_EVENTS_LOADED, 
-         MESSAGE_KEY_EVENT,
-         MESSAGE_KEY_UPDATE_STARTED, 
-         MESSAGE_KEY_UPDATE_FINISHED,
-         MILLISECONDS_PER_MINUTE } from "../common/globals.js";
+import * as msgTypes from "../common/messages.js";
+import * as globals from "../common/globals.js";
 
 if (companion.permissions.granted("run_background")) {
     companion.addEventListener("wakeinterval", updateIntervalExpired);
@@ -28,7 +23,7 @@ messaging.peerSocket.onopen = () => {
 // Listen for the onmessage event
 messaging.peerSocket.onmessage = evt => {
     console.log(JSON.stringify(evt.data));
-    if (evt.data.key === MESSAGE_KEY_UPDATE) {
+    if (evt.data.key === msgTypes.MESSAGE_KEY_UPDATE) {
         if (localStorage.getItem("events") == null) {
             loadEvents().then(function () {
                 if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
@@ -72,7 +67,7 @@ function loadEvents() {
             localStorage.setItem("errors", JSON.stringify(loader.errors));
     
             let updateInterval = getUpdateInterval();
-            companion.wakeInterval = updateInterval * MILLISECONDS_PER_MINUTE;
+            companion.wakeInterval = updateInterval * globals.MILLISECONDS_PER_MINUTE;
             resolve();
         });
     });
@@ -81,19 +76,19 @@ function loadEvents() {
 function sendEventsToDevice() {
     let storedEvents = localStorage.getItem("events");
     if (storedEvents != null) {
-        sendMessage({ key: MESSAGE_KEY_EVENTS_LOADED });
+        sendMessage({ key: msgTypes.MESSAGE_KEY_EVENTS_LOADED });
 
         let events = JSON.parse(localStorage.getItem("events"));
         events.forEach(event => {
             let data = {
-                key: MESSAGE_KEY_EVENT,
+                key: msgTypes.MESSAGE_KEY_EVENT,
                 message: event
             };
             sendMessage(data);
         });
 
         localStorage.removeItem("events");
-        sendMessage({ key: MESSAGE_KEY_UPDATE_FINISHED });
+        sendMessage({ key: msgTypes.MESSAGE_KEY_UPDATE_FINISHED });
     }
 }
 
@@ -103,7 +98,7 @@ function sendErrorsToDevice() {
         let errors = JSON.parse(localStorage.getItem("errors"));
         errors.forEach(err => {
             let data = {
-                key: MESSAGE_KEY_ERROR,
+                key: msgTypes.MESSAGE_KEY_ERROR,
                 message: err
             };
             sendMessage(data);

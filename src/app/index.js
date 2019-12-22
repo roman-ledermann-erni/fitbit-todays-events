@@ -3,14 +3,8 @@ import document from "document";
 import * as messaging from "messaging";
 import { EventListCreator } from "./eventListCreator.js";
 import { EventListRenderer } from "./eventListRenderer.js";
-import { MESSAGE_KEY_UPDATE,
-     MESSAGE_KEY_ERROR, 
-     MESSAGE_KEY_EVENTS_LOADED, 
-     MESSAGE_KEY_EVENT, 
-     MESSAGE_KEY_UPDATE_STARTED, 
-     MESSAGE_KEY_UPDATE_FINISHED, 
-     EVENT_DATA_FILE,
-     LAST_UPDATE_FILE } from "../common/globals.js";
+import * as msgTypes from "../common/messages.js";
+import * as globals from "../common/globals.js";
 
 // Initialization
 let listCreator = new EventListCreator();
@@ -30,8 +24,8 @@ document.getElementById("detail-back-btn").onclick = () => {
     detailOverlay.style.display = "none";
 }
 
-if (fs.existsSync(EVENT_DATA_FILE)) {
-    let eventList = fs.readFileSync(EVENT_DATA_FILE, "cbor");
+if (fs.existsSync(globals.EVENT_DATA_FILE)) {
+    let eventList = fs.readFileSync(globals.EVENT_DATA_FILE, "cbor");
     if (eventList !== undefined) {
            listRenderer.renderList(eventList);
     }
@@ -40,22 +34,22 @@ if (fs.existsSync(EVENT_DATA_FILE)) {
 // Message is received
 messaging.peerSocket.onmessage = evt => {
     console.log(`App received: ${JSON.stringify(evt)}`);
-    if (evt.data.key === MESSAGE_KEY_UPDATE_STARTED) {
+    if (evt.data.key === msgTypes.MESSAGE_KEY_UPDATE_STARTED) {
         showSpinner();
     }
-    if (evt.data.key === MESSAGE_KEY_EVENTS_LOADED) {
+    if (evt.data.key === msgTypes.MESSAGE_KEY_EVENTS_LOADED) {
         listCreator.clearEvents();
     }
-    if (evt.data.key === MESSAGE_KEY_EVENT) {
+    if (evt.data.key === msgTypes.MESSAGE_KEY_EVENT) {
         listCreator.addEvent(evt.data.message);
     }
-    if (evt.data.key === MESSAGE_KEY_UPDATE_FINISHED) {
+    if (evt.data.key === msgTypes.MESSAGE_KEY_UPDATE_FINISHED) {
         let eventList = listCreator.createTileList();
         eventList.forEach(i => console.log(JSON.stringify(i)));
         listRenderer.renderList(eventList);
         hideSpinner();
-        fs.writeFileSync(EVENT_DATA_FILE, eventList, "cbor");
-        fs.writeFileSync(LAST_UPDATE_FILE, new Date().getTime().toString(), "ascii");
+        fs.writeFileSync(globals.EVENT_DATA_FILE, eventList, "cbor");
+        fs.writeFileSync(globals.LAST_UPDATE_FILE, new Date().getTime().toString(), "ascii");
     }
 };
 

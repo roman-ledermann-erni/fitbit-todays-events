@@ -1,31 +1,35 @@
 <svg>
-    <!-- Event date -->
     <symbol id="date-header" href="#tile-list-item" display="none">
-        <text id="date-header-text" text-anchor="middle" text-length="32" width="100%" />
+        <text id="date-header-text" text-anchor="middle" text-length="32" x="50%" width="100%" />
     </symbol>
 
     <symbol id="event-item" href="#tile-list-item" pointer-events="visible" display="none">
-        <line id="header-line" class="rect-rounder" x1="9" y1="5" x2="339" y2="5" stroke-width="10" stroke-linecap="round" fill="lightgrey" opacity="0.3" />
-        <rect id="header-black" x="0" y="7" width="100%" height="5" fill="black" />
+        <section id="event-background-section">
+            <line id="header-line" class="rect-rounder" stroke-linecap="round" fill="lightgrey" opacity="0.3" />
+            <rect id="header-black" x="0" width="100%" fill="black" />
 
-        <line id="footer-line" class="rect-rounder" x1="9" y1="5" x2="339" y2="5" stroke-width="10" stroke-linecap="round" fill="lightgrey" opacity="0.3" />
-        <rect id="fotter-black" x="0" y="7" width="100%" height="6" fill="black" />
+            <line id="footer-line" class="rect-rounder" stroke-linecap="round" fill="lightgrey" opacity="0.3" />
+            <rect id="fotter-black" x="0" width="100%" fill="black" />
 
-        <rect id="background-rect" x="4" y="7" width="341" height="100%-14" fill="lightgrey" opacity="0.3" />
-        <textarea id="event-time-text" text-length="128" />
-        <textarea id="event-duration-text" text-length="128" />
-        <section id="event-summary-section">
-            <textarea id="event-summary-text" width="100%" height="100%" text-overflow="ellipsis" text-length="128" />
+            <rect id="background-rect" fill="lightgrey" opacity="0.3" />
         </section>
-        <textarea id="event-summary-row-placeholder" />
-        <textarea id="event-location-text" text-overflow="ellipsis" text-length="128" />
 
-        <line id="calendar-identifier" x1="338" y1="5" x2="338" y2="100%-7" stroke-width="2" stroke-linecap="round" />
+        <section id="event-info-section">
+            <textarea id="event-time-text" class="event-time" text-length="128" />
+            <textarea id="event-duration-text" class="event-time" text-anchor="end" text-length="128" />
+            <section id="event-summary-section">
+                <textarea id="event-summary-text" class="event-summary" width="100%" height="100%" text-overflow="ellipsis" text-length="128" />
+            </section>
+            <textarea id="event-summary-row-placeholder" />
+            <textarea id="event-location-text" class="event-location" text-overflow="ellipsis" text-length="128" />
+        </section>
+
+        <line id="calendar-identifier" stroke-width="2" stroke-linecap="round" />
     </symbol>
 
-    <symbol id="list-footer" href="#tile-list-item" display="none">
-        <text id="last-update-text" class="header-text" x="15" y="30" text-length="32" text-anchor="middle" />
-        <!-- <image id="update-img" x="100%-40" y="-2" width="40" height="40" href="btn_combo_reset_p.png" fill="white" /> -->
+    <symbol id="list-footer" href="#tile-list-item" pointer-events="visible" display="none">
+        <text id="last-update-text" class="header-text" x="50%" text-length="32" text-anchor="middle" />
+        <image id="update-img" x="100%-40" y="-2" width="40" height="40" href="btn_combo_reset_p.png" fill="white" />
     </symbol>
 
     <use id="event-list" href="#tile-list" y="0" width="100%" height="100%">

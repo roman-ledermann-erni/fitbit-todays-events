@@ -23,6 +23,12 @@
   fill: #ffffff;
 }
 
+/* Event background element location */
+#event-background-section {
+  x: 0;
+  y: 0;
+}
+
 .rect-rounder {
   x1: 9;
   y1: 5;
@@ -48,41 +54,36 @@
   height: 100%-14;
 }
 
-#event-time-text {
+/* Event info element location */
+#event-info-section {
   x: 15;
   y: 7;
-  font-size: 22;
-  font-family: Seville-Regular;
+  width: 100%-30;
+}
+
+#event-time-text {
+  x: 0;
+  y: 0;
   height: 24;
   width: 50%;
-  fill: #ffffff;
 }
 
 #event-duration-text {
-  x: 270;
-  y: 7;
-  font-size: 22;
-  font-family: Seville-Regular;
+  x: 50%;
+  y: 0;
   height: 24;
   width: 50%;
-  fill: #ffffff;
 }
 
 #event-summary-section {
-  x: 15;
+  x: 0;
   y: $;
   height: 34;
   width: 100%-30;
 }
 
-#event-summary-text {
-  font-size: 30;
-  font-family: Seville-Bold;
-  fill: #ffffff;
-}
-
 #event-summary-row-placeholder {
-  x: 15;
+  x: 0;
   y: $;
   height: 34;
   width: 100%-30;
@@ -90,11 +91,8 @@
 }
 
 #event-location-text {
-  x: 15;
+  x: 0;
   y: $;
-  font-size: 24;
-  font-family: Seville-Regular;
-  fill: #ffffff;
   height: 34;
   width: 318;
 }
@@ -105,6 +103,26 @@
   x2: 338;
   y2: 100%-7;
 }
+
+/* Event info formating */
+.event-time {
+  font-size: 22;
+  font-family: Seville-Regular;
+  fill: #ffffff;
+}
+
+.event-summary {
+  font-size: 30;
+  font-family: Seville-Bold;
+  fill: #ffffff;
+}
+
+.event-location {
+  font-size: 24;
+  font-family: Seville-Regular;
+  fill: #ffffff;
+}
+
 
 #list-footer {
   height: 44;

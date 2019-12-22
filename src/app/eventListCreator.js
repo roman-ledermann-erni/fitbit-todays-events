@@ -1,3 +1,5 @@
+import * as elements from "../common/ui.js";
+
 export class EventListCreator {
     constructor() {
         this.events = [];
@@ -25,16 +27,16 @@ export class EventListCreator {
                 if (headerDay.getTime() === startDay.getTime() || headerDay.getTime() === endDay.getTime()) {
                     if (headerDayAdded == false) {
                         tileList.push({
-                            type: "date-header-pool",
+                            type: elements.EVENT_LIST_HEADER_TYPE,
                             date: headerDay.getTime()
                         });
                         headerDayAdded = true;
                     }
-                    tileList.push({ type: "event-item-pool", event: event });
+                    tileList.push({ type: elements.EVENT_LIST_EVENT_TYPE, event: event });
                 }
             });
         }
-        tileList.push({ type: "list-footer-pool" });
+        tileList.push({ type: elements.EVENT_LIST_FOOTER_TYPE });
         return tileList;
     }
 };
