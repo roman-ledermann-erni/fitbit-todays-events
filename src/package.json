@@ -1,5 +1,5 @@
 {
-  "name": "todays-events",
+  "name": "todays-agenda",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
@@ -10,7 +10,7 @@
   "fitbit": {
     "appUUID": "a0ff0d33-f064-4509-acaa-c6367aaf7d1e",
     "appType": "app",
-    "appDisplayName": "Today's Events",
+    "appDisplayName": "Today's Agenda",
     "iconFile": "resources/icon.png",
     "wipeColor": "#607d8b",
     "requestedPermissions": [
@@ -24,7 +24,7 @@
     ],
     "i18n": {
       "en": {
-        "name": "Todays Events"
+        "name": "Todays Agenda"
       }
     },
     "defaultLanguage": "en-US"

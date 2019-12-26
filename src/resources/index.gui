@@ -1,17 +1,18 @@
 <svg>
-    <symbol id="date-header" href="#tile-list-item" display="none">
-        <text id="date-header-text" text-anchor="middle" text-length="32" x="50%" width="100%" />
+    <symbol id="date-item" href="#tile-list-item" display="none">
+        <text id="date-item-text" text-anchor="middle" text-length="32" x="50%" width="100%" />
+        <text id="date-events-text" text-anchor="middle" text-length="32" x="50%" width="100%" />
     </symbol>
 
     <symbol id="event-item" href="#tile-list-item" pointer-events="visible" display="none">
         <section id="event-background-section">
-            <line id="header-line" class="rect-rounder" stroke-linecap="round" fill="lightgrey" opacity="0.3" />
+            <line id="header-line" class="rect-rounder" stroke-linecap="round" fill="#525152" />
             <rect id="header-black" x="0" width="100%" fill="black" />
 
-            <line id="footer-line" class="rect-rounder" stroke-linecap="round" fill="lightgrey" opacity="0.3" />
+            <line id="footer-line" class="rect-rounder" stroke-linecap="round" fill="#525152" />
             <rect id="fotter-black" x="0" width="100%" fill="black" />
 
-            <rect id="background-rect" fill="lightgrey" opacity="0.3" />
+            <rect id="background-rect" fill="#525152" />
         </section>
 
         <section id="event-info-section">
@@ -36,17 +37,17 @@
         <var id="virtual" value="1" />
         <var id="separator-height-bottom" value="2" />
 
-        <use id="date-header-pool" href="#tile-list-pool">
-            <use id="date-header-pool[0]" href="#date-header" />
-            <use id="date-header-pool[1]" href="#date-header" />
-            <use id="date-header-pool[2]" href="#date-header" />
-            <use id="date-header-pool[3]" href="#date-header" />
-            <use id="date-header-pool[4]" href="#date-header" />
-            <use id="date-header-pool[5]" href="#date-header" />
-            <use id="date-header-pool[6]" href="#date-header" />
-            <use id="date-header-pool[7]" href="#date-header" />
-            <use id="date-header-pool[8]" href="#date-header" />
-            <use id="date-header-pool[9]" href="#date-header" />
+        <use id="date-item-pool" href="#tile-list-pool">
+            <use id="date-item-pool[0]" href="#date-item" />
+            <use id="date-item-pool[1]" href="#date-item" />
+            <use id="date-item-pool[2]" href="#date-item" />
+            <use id="date-item-pool[3]" href="#date-item" />
+            <use id="date-item-pool[4]" href="#date-item" />
+            <use id="date-item-pool[5]" href="#date-item" />
+            <use id="date-item-pool[6]" href="#date-item" />
+            <use id="date-item-pool[7]" href="#date-item" />
+            <use id="date-item-pool[8]" href="#date-item" />
+            <use id="date-item-pool[9]" href="#date-item" />
         </use>
 
         <use id="event-item-pool" href="#tile-list-pool">

@@ -55,7 +55,7 @@ export class IcsParser {
         for (let packedEvent in records) {
             if (records.hasOwnProperty(packedEvent) && records[packedEvent].type === 'VEVENT') {
                 let unpacked = records[packedEvent]
-                if (+unpacked.end >= +today && +unpacked.end <= +lookahead) {
+                if (+unpacked.end >= +today && +unpacked.start <= +lookahead) {
                     events.push(unpacked);
                 }
             }

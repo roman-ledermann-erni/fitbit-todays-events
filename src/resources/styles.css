@@ -13,12 +13,21 @@
   height: 160;
 }
 
-#date-header {
-  height: 44;
+/* Date Header Item */
+#date-item {
+  height: 90;
 }
 
-#date-header-text {
-  font-size: 34;
+#date-item-text {
+  y: 40;
+  font-size: 38;
+  font-family: Seville-Regular;
+  fill: #ffffff;
+}
+
+#date-events-text {
+  y: $-5;
+  font-size: 28;
   font-family: Seville-Regular;
   fill: #ffffff;
 }

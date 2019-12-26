@@ -17,22 +17,26 @@ export class EventListCreator {
         let now = new Date();
         let tileList = [];
         for (let counter = 0; counter <= 5; ++counter) {
-            let headerDay = new Date(now.getFullYear(), now.getMonth(), now.getDate() + counter);
-            let headerDayAdded = false;
+            let currentDay = new Date(now.getFullYear(), now.getMonth(), now.getDate() + counter);
+            let currentDayAdded = false;
+            let dateItem = null;
             this.events.forEach(event => {
                 let startDay = new Date(event.start);
                 startDay = new Date(startDay.getFullYear(), startDay.getMonth(), startDay.getDate());
                 let endDay = new Date(event.end);
                 endDay = new Date(endDay.getFullYear(), endDay.getMonth(), endDay.getDate());
-                if (headerDay.getTime() === startDay.getTime() || headerDay.getTime() === endDay.getTime()) {
-                    if (headerDayAdded == false) {
-                        tileList.push({
-                            type: elements.EVENT_LIST_HEADER_TYPE,
-                            date: headerDay.getTime()
-                        });
-                        headerDayAdded = true;
+                if (currentDay.getTime() === startDay.getTime() || currentDay.getTime() === endDay.getTime()) {
+                    if (currentDayAdded == false) {
+                        dateItem = {
+                            type: elements.EVENT_LIST_HEADER_ITEM,
+                            date: currentDay.getTime(),
+                            events: 0
+                        }
+                        tileList.push(dateItem);
+                        currentDayAdded = true;
                     }
                     tileList.push({ type: elements.EVENT_LIST_EVENT_TYPE, event: event });
+                    dateItem.events++;
                 }
             });
         }

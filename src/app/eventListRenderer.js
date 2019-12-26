@@ -22,10 +22,11 @@ export class EventListRenderer {
                 return event;
             },
             configureTile: function (tile, info) {
-                if (info.type === elements.EVENT_LIST_HEADER_TYPE) {
-                    let headerDate = new Date(info.date);
-                    let dateStr = gettext("weekday" + headerDate.getDay()) + ", " + headerDate.getDate() + " " + gettext("month" + headerDate.getMonth());
-                    tile.getElementById(elements.HEADER_DATE_ELEMENT).text = dateStr;
+                if (info.type === elements.EVENT_LIST_HEADER_ITEM) {
+                    let itemDate = new Date(info.date);
+                    let dateStr = gettext("weekday_short" + itemDate.getDay()) + ", " + itemDate.getDate() + " " + gettext("month_short" + itemDate.getMonth());
+                    tile.getElementById(elements.DATE_ITEM_DATE_ELEMENT).text = dateStr;
+                    tile.getElementById(elements.DATE_ITEM_EVENTS_ELEMENT).text = gettext("numberOfEvents").replace("{eventNr}", info.events);
                 } else if (info.type === elements.EVENT_LIST_EVENT_TYPE) {
                     configureEventTile(tile, info);
                     tile.onclick = function () {
@@ -122,7 +123,7 @@ function formatDuration(begin, end) {
     let duration = end - begin;
     duration = Math.round(duration / 1000 / 60);
     if (duration > 90) {
-        duration = duration / 60;
+        duration = (duration / 60).toFixed(1);
         return duration + "h";
     } else {
         return duration + " min";

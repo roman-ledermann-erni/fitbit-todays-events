@@ -1,9 +1,10 @@
 export const EVENT_LIST_ELEMENT = "event-list";
-export const EVENT_LIST_HEADER_TYPE = "date-header-pool";
+export const EVENT_LIST_HEADER_ITEM = "date-item-pool";
 export const EVENT_LIST_EVENT_TYPE = "event-item-pool";
 export const EVENT_LIST_FOOTER_TYPE = "list-footer-pool";
 
-export const HEADER_DATE_ELEMENT = "date-header-text";
+export const DATE_ITEM_DATE_ELEMENT = "date-item-text";
+export const DATE_ITEM_EVENTS_ELEMENT = "date-events-text";
 
 export const EVENT_TIME_ELEMENT = "event-time-text";
 export const EVENT_DURATION_ELEMENT = "event-duration-text";
