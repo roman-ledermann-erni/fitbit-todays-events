@@ -9,10 +9,6 @@
   font-weight: regular;
 }
 
-.tile-list-item {
-  height: 160;
-}
-
 /* Date Header Item */
 #date-item {
   height: 90;
@@ -30,6 +26,10 @@
   font-size: 28;
   font-family: Seville-Regular;
   fill: #ffffff;
+}
+
+#event-item {
+  height: 160;
 }
 
 /* Event background element location */
@@ -70,6 +70,13 @@
   width: 100%-30;
 }
 
+#event-time-section {
+  x: 5;
+  y: $;
+  height: 24;
+  width: 100%-10;
+}
+
 #event-time-text {
   x: 0;
   y: 0;
@@ -85,14 +92,14 @@
 }
 
 #event-summary-section {
-  x: 0;
+  x: 5;
   y: $;
   height: 34;
   width: 100%-30;
 }
 
 #event-summary-row-placeholder {
-  x: 0;
+  x: 5;
   y: $;
   height: 34;
   width: 100%-30;
@@ -100,10 +107,17 @@
 }
 
 #event-location-text {
-  x: 0;
+  x: 5;
   y: $;
   height: 34;
-  width: 318;
+  width: 313;
+}
+
+.element-spacer {
+  x: 5;
+  y: $;
+  height: 10;
+  width: 100%;
 }
 
 #calendar-identifier {

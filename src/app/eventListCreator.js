@@ -17,30 +17,45 @@ export class EventListCreator {
         let now = new Date();
         let tileList = [];
         for (let counter = 0; counter <= 5; ++counter) {
-            let currentDay = new Date(now.getFullYear(), now.getMonth(), now.getDate() + counter);
-            let currentDayAdded = false;
+            let currentDateStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() + counter);
+            let currentDateEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + counter + 1);
+            let currentDateAdded = false;
             let dateItem = null;
+            currentDateStart.sets
             this.events.forEach(event => {
-                let startDay = new Date(event.start);
-                startDay = new Date(startDay.getFullYear(), startDay.getMonth(), startDay.getDate());
-                let endDay = new Date(event.end);
-                endDay = new Date(endDay.getFullYear(), endDay.getMonth(), endDay.getDate());
-                if (currentDay.getTime() === startDay.getTime() || currentDay.getTime() === endDay.getTime()) {
-                    if (currentDayAdded == false) {
+                if (isInDate(event, currentDateStart, currentDateEnd)) {
+                    if (currentDateAdded == false) {
                         dateItem = {
                             type: elements.EVENT_LIST_HEADER_ITEM,
-                            date: currentDay.getTime(),
+                            date: currentDateStart.getTime(),
                             events: 0
                         }
                         tileList.push(dateItem);
-                        currentDayAdded = true;
+                        currentDateAdded = true;
                     }
-                    tileList.push({ type: elements.EVENT_LIST_EVENT_TYPE, event: event });
+                    let eventDuration = event.end - event.start;
+                    if (event.start < +currentDateStart) {
+                        eventDuration = event.end - +currentDateStart;
+                    }
+                    console.log(event.duration);
+                    tileList.push({ type: elements.EVENT_LIST_EVENT_ITEM, event: event, duration: eventDuration });
                     dateItem.events++;
                 }
             });
         }
-        tileList.push({ type: elements.EVENT_LIST_FOOTER_TYPE });
+        tileList.push({ type: elements.EVENT_LIST_UPDATE_ITEM });
         return tileList;
     }
 };
+
+/* Private methods */
+function isInDate(event, currentDateStart, currentDateEnd) {
+    let startDate = new Date(event.start);
+    startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+    let endDate = new Date(event.end);
+    endDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+
+    return (+startDate >= currentDateStart.setSeconds(1) && +startDate <= currentDateEnd.setSeconds(-1)) ||
+        (+endDate >= currentDateStart.setSeconds(1) && +endDate <= currentDateEnd.setSeconds(-1)) ||
+        (+startDate < currentDateStart.setSeconds(1) && +endDate > currentDateEnd.setSeconds(-1));
+}

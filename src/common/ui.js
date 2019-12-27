@@ -1,17 +1,18 @@
 export const EVENT_LIST_ELEMENT = "event-list";
 export const EVENT_LIST_HEADER_ITEM = "date-item-pool";
-export const EVENT_LIST_EVENT_TYPE = "event-item-pool";
-export const EVENT_LIST_FOOTER_TYPE = "list-footer-pool";
+export const EVENT_LIST_EVENT_ITEM = "event-item-pool";
+export const EVENT_LIST_UPDATE_ITEM = "list-footer-pool";
 
 export const DATE_ITEM_DATE_ELEMENT = "date-item-text";
 export const DATE_ITEM_EVENTS_ELEMENT = "date-events-text";
 
-export const EVENT_TIME_ELEMENT = "event-time-text";
-export const EVENT_DURATION_ELEMENT = "event-duration-text";
-export const EVENT_SUMMARY_ELEMENT = "event-summary-text";
-export const EVENT_SUMMARY_PLACEHOLDER = "event-summary-row-placeholder";
-export const EVENT_LOCATION_ELEMENT = "event-location-text";
-export const CALENDAR_ID_ELEMENT = "calendar-identifier"
+export const EVENT_ITEM_TIME_ELEMENT = "event-time-text";
+export const EVENT_ITEM_DURATION_ELEMENT = "event-duration-text";
+export const EVENT_ITEM_SUMMARY_ELEMENT = "event-summary-text";
+export const EVENT_ITEM_SUMMARY_PLACEHOLDER = "event-summary-row-placeholder";
+export const EVENT_ITEM_LOCATION_ELEMENT = "event-location-text";
+export const EVENT_ITEM_CALID_ELEMENT = "calendar-identifier"
+export const EVENT_ITEM_SPACER_CLASS = "element-spacer";
 
 export const HEADER_LINE_ELEMENT = "header-line";
 export const FOOTER_LINE_ELEMENT = "footer-line";

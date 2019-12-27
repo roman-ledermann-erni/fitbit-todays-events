@@ -43,3 +43,15 @@ msgstr "Last updated {duration} ago"
 
 msgid "numberOfEvents"
 msgstr "{eventNr} Events"
+
+msgid "hours_short"
+msgstr "h"
+
+msgid "minutes_short"
+msgstr " min"
+
+msgid "days_short"
+msgstr " days"
+
+msgid "allDay"
+msgstr "All day"

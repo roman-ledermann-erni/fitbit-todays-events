@@ -16,13 +16,19 @@
         </section>
 
         <section id="event-info-section">
-            <textarea id="event-time-text" class="event-time" text-length="128" />
-            <textarea id="event-duration-text" class="event-time" text-anchor="end" text-length="128" />
+            <textarea class="element-spacer"/>
+            <section id="event-time-section">
+                <textarea id="event-time-text" class="event-time" text-length="128" />
+                <textarea id="event-duration-text" class="event-time" text-anchor="end" text-length="128" />
+            </section>
+            <textarea class="element-spacer"/>
             <section id="event-summary-section">
                 <textarea id="event-summary-text" class="event-summary" width="100%" height="100%" text-overflow="ellipsis" text-length="128" />
             </section>
             <textarea id="event-summary-row-placeholder" />
+            <textarea class="element-spacer"/>
             <textarea id="event-location-text" class="event-location" text-overflow="ellipsis" text-length="128" />
+            <textarea class="element-spacer"/>
         </section>
 
         <line id="calendar-identifier" stroke-width="2" stroke-linecap="round" />
@@ -51,16 +57,16 @@
         </use>
 
         <use id="event-item-pool" href="#tile-list-pool">
-            <use id="event-item-pool[0]" href="#event-item" class="tile-list-item" />
-            <use id="event-item-pool[1]" href="#event-item" class="tile-list-item" />
-            <use id="event-item-pool[2]" href="#event-item" class="tile-list-item" />
-            <use id="event-item-pool[3]" href="#event-item" class="tile-list-item" />
-            <use id="event-item-pool[4]" href="#event-item" class="tile-list-item" />
-            <use id="event-item-pool[5]" href="#event-item" class="tile-list-item" />
-            <use id="event-item-pool[6]" href="#event-item" class="tile-list-item" />
-            <use id="event-item-pool[7]" href="#event-item" class="tile-list-item" />
-            <use id="event-item-pool[8]" href="#event-item" class="tile-list-item" />
-            <use id="event-item-pool[9]" href="#event-item" class="tile-list-item" />
+            <use id="event-item-pool[0]" href="#event-item" />
+            <use id="event-item-pool[1]" href="#event-item" />
+            <use id="event-item-pool[2]" href="#event-item" />
+            <use id="event-item-pool[3]" href="#event-item" />
+            <use id="event-item-pool[4]" href="#event-item" />
+            <use id="event-item-pool[5]" href="#event-item" />
+            <use id="event-item-pool[6]" href="#event-item" />
+            <use id="event-item-pool[7]" href="#event-item" />
+            <use id="event-item-pool[8]" href="#event-item" />
+            <use id="event-item-pool[9]" href="#event-item" />
         </use>
 
         <use id="list-footer-pool" href="#tile-list-pool">
