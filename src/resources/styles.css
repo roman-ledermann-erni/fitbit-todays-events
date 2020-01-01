@@ -41,7 +41,7 @@
 .rect-rounder {
   x1: 9;
   y1: 5;
-  x2: 339;
+  x2: 334;
   y2: 5;
   stroke-width: 10;
 }
@@ -59,7 +59,7 @@
 #background-rect {
   x: 4;
   y: 7;
-  width: 341;
+  width: 336;
   height: 100%-14;
 }
 
@@ -116,15 +116,15 @@
 .element-spacer {
   x: 5;
   y: $;
-  height: 10;
+  height: 8;
   width: 100%;
 }
 
 #calendar-identifier {
   x1: 338;
-  y1: 5;
+  y1: 2;
   x2: 338;
-  y2: 100%-7;
+  y2: 100%-5;
 }
 
 /* Event info formating */
@@ -147,7 +147,7 @@
 }
 
 
-#list-footer {
+#footer-item {
   height: 44;
 }
 
@@ -169,15 +169,17 @@
   fill: fb-white;
 }
 
-.detail-overlay-header-text {
-  font-size: 30;
-  font-family: Seville-Bold;
-  text-length: 128;
+#detail-overlay-summary-text {
+  x: 15;
+  y: 10;
+  width: 100%-30;
+  font-size: 38;
 }
 
 .detail-overlay-normal-text {
-  font-size: 26;
-  font-family: Seville-Regular;
+  x: 15;
+  y: $+10;
+  width: 100%-30;
+  font-size: 22;
   fill: #ffffff;
-  text-length: 128;
 }

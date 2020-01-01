@@ -63,13 +63,6 @@ messaging.peerSocket.onclose = () => {
     console.log("App Socket Closed");
 };
 
-// Send data to companion using Messaging API
-function sendMessage(msg) {
-    if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-        messaging.peerSocket.send(msg);
-    }
-}
-
 function showSpinner() {
     document.getElementById("update-overlay").style.display = "inline";
     document.getElementById("update-spinner").state = "enabled";;

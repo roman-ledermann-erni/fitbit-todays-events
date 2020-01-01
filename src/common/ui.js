@@ -1,7 +1,7 @@
 export const EVENT_LIST_ELEMENT = "event-list";
 export const EVENT_LIST_HEADER_ITEM = "date-item-pool";
 export const EVENT_LIST_EVENT_ITEM = "event-item-pool";
-export const EVENT_LIST_UPDATE_ITEM = "list-footer-pool";
+export const EVENT_LIST_UPDATE_ITEM = "footer-item-pool";
 
 export const DATE_ITEM_DATE_ELEMENT = "date-item-text";
 export const DATE_ITEM_EVENTS_ELEMENT = "date-events-text";
@@ -24,3 +24,4 @@ export const OVERLAY_ELEMENT = "detail-overlay";
 export const OVERLAY_SUMMARY_ELEMENT = "detail-overlay-summary-text";
 export const OVERLAY_LOCATION_ELEMENT = "detail-overlay-location-text";
 export const OVERLAY_TIME_ELEMENT = "detail-overlay-time-text";
+export const OVERLAY_CALENDAR_ELEMENT = "detail-overlay-calendar-text";

@@ -55,3 +55,9 @@ msgstr " days"
 
 msgid "allDay"
 msgstr "All day"
+
+msgid "location"
+msgstr "Location:"
+
+msgid "calendar"
+msgstr "Calendar:"

@@ -29,9 +29,9 @@ export class EventListRenderer {
                     tile.getElementById(elements.DATE_ITEM_EVENTS_ELEMENT).text = gettext("numberOfEvents").replace("{eventNr}", info.events);
                 } else if (info.type === elements.EVENT_LIST_EVENT_ITEM) {
                     configureEventTile(tile, info);
-                    tile.onclick = function () {
+                    tile.onclick = evt => {
                         let overlay = document.getElementById(elements.OVERLAY_ELEMENT)
-                        loadOverlay(overlay, tile);
+                        configureOverlay(overlay, info.event);
                         overlay.style.display = "inline";
                     };
                 } else if (info.type === elements.EVENT_LIST_UPDATE_ITEM) {
@@ -77,7 +77,7 @@ function configureEventTile(tile, event) {
 
     tile.getElementById(elements.FOOTER_BLACK_ELEMENT).y = tileHeight - tile.getElementById(elements.FOOTER_BLACK_ELEMENT).height;
     tileHeight += tile.getElementById(elements.FOOTER_BLACK_ELEMENT).height;
-    tile.height = tileHeight + 2;
+    tile.height = tileHeight + 3;
 }
 
 function configureEventTime(tile, event, duration) {
@@ -114,11 +114,16 @@ function configureEventLocation(tile, event) {
     }
 }
 
-function loadOverlay(overlay, tile) {
-    overlay.getElementById(elements.OVERLAY_SUMMARY_ELEMENT).text = tile.getElementById(elements.EVENT_ITEM_SUMMARY_ELEMENT).text;
-    overlay.getElementById(elements.OVERLAY_SUMMARY_ELEMENT).style.fill = tile.getElementById(elements.EVENT_ITEM_CALID_ELEMENT).style.fill;
-    overlay.getElementById(elements.OVERLAY_LOCATION_ELEMENT).text = tile.getElementById(elements.EVENT_ITEM_LOCATION_ELEMENT).text;
-    overlay.getElementById(elements.OVERLAY_TIME_ELEMENT).text = tile.getElementById(elements.EVENT_ITEM_TIME_ELEMENT).text;
+function configureOverlay(overlay, event) {
+    overlay.getElementById(elements.OVERLAY_SUMMARY_ELEMENT).text = event.summary;
+    overlay.getElementById(elements.OVERLAY_SUMMARY_ELEMENT).style.fill = event.color;
+    overlay.getElementById(elements.OVERLAY_TIME_ELEMENT).text = event.start
+    if (event.location.length > 0) {
+        overlay.getElementById(elements.OVERLAY_LOCATION_ELEMENT).text = gettext("location") + " " + event.location;
+    } else {
+        overlay.getElementById(elements.OVERLAY_LOCATION_ELEMENT).text = "";
+    }
+    overlay.getElementById(elements.OVERLAY_CALENDAR_ELEMENT).text = gettext("calendar") + " " + event.cal;
 }
 
 function toTwoDigit(num) { return ("0" + num).slice(-2); }
@@ -133,7 +138,11 @@ function formatDuration(duration) {
         duration = Math.round(duration / 60 / 24);
         return duration + gettext("days_short");
     } else if (duration > 90) {
-        duration = (duration / 60).toFixed(1);
+        if (duration % 60 == 0) {
+            duration = (duration / 60).toFixed(0);    
+        } else {
+            duration = (duration / 60).toFixed(1);
+        }
         return duration + gettext("hours_short");
     } else {
         return duration + gettext("minutes_short");

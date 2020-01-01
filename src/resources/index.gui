@@ -31,10 +31,10 @@
             <textarea class="element-spacer"/>
         </section>
 
-        <line id="calendar-identifier" stroke-width="2" stroke-linecap="round" />
+        <line id="calendar-identifier" stroke-width="3" stroke-linecap="round" />
     </symbol>
 
-    <symbol id="list-footer" href="#tile-list-item" pointer-events="visible" display="none">
+    <symbol id="footer-item" href="#tile-list-item" pointer-events="visible" display="none">
         <text id="last-update-text" class="header-text" x="50%" text-length="32" text-anchor="middle" />
         <image id="update-img" x="100%-40" y="-2" width="40" height="40" href="btn_combo_reset_p.png" fill="white" />
     </symbol>
@@ -69,17 +69,17 @@
             <use id="event-item-pool[9]" href="#event-item" />
         </use>
 
-        <use id="list-footer-pool" href="#tile-list-pool">
-            <use id="list-footer-pool[0]" href="#list-footer" />
-            <use id="list-footer-pool[1]" href="#list-footer" />
-            <use id="list-footer-pool[2]" href="#list-footer" />
-            <use id="list-footer-pool[3]" href="#list-footer" />
-            <use id="list-footer-pool[4]" href="#list-footer" />
-            <use id="list-footer-pool[5]" href="#list-footer" />
-            <use id="list-footer-pool[6]" href="#list-footer" />
-            <use id="list-footer-pool[7]" href="#list-footer" />
-            <use id="list-footer-pool[8]" href="#list-footer" />
-            <use id="list-footer-pool[9]" href="#list-footer" />
+        <use id="footer-item-pool" href="#tile-list-pool">
+            <use id="footer-item-pool[0]" href="#footer-item" />
+            <use id="footer-item-pool[1]" href="#footer-item" />
+            <use id="footer-item-pool[2]" href="#footer-item" />
+            <use id="footer-item-pool[3]" href="#footer-item" />
+            <use id="footer-item-pool[4]" href="#footer-item" />
+            <use id="footer-item-pool[5]" href="#footer-item" />
+            <use id="footer-item-pool[6]" href="#footer-item" />
+            <use id="footer-item-pool[7]" href="#footer-item" />
+            <use id="footer-item-pool[8]" href="#footer-item" />
+            <use id="footer-item-pool[9]" href="#footer-item" />
         </use>
     </use>
 
@@ -92,20 +92,29 @@
         <rect x="0" y="0" width="100%" height="100%" fill="#0f0f0f"/>
         <use href="#scrollview" x="0" y="0" width="100%" height="100%">
             <use href="#scrollview-item" id="detail-overlay-item" height="100%">
-                <use id="detail-overlay-summary-text" class="detail-overlay-header-text" x="10" y="10" width="100%-20" href="#dynamic-textarea" overflow="visible">
+                <use id="detail-overlay-summary-text" href="#dynamic-textarea">
                     <set href="#text" attributeName="text-buffer" to="Summary"/>
-                    <set href='#text' attributeName='font-size' to='inherit'/>
-                    <set href='#text' attributeName='text-length' to='128'/>
+                    <set href="#text" attributeName="font-size" to="inherit"/>
+                    <set href="#text" attributeName="font-family" to="Seville-Regular"/>
+                    <set href="#text" attributeName="text-length" to="128"/>
                 </use>
-                <use id="detail-overlay-location-text" class="detail-overlay-normal-text" x="10" y="$+5" width="100%-20" href="#dynamic-textarea" overflow="visible">
-                    <set href="#text" attributeName="text-buffer" to="Location"/>
-                    <set href='#text' attributeName='font-size' to='inherit'/>
-                    <set href='#text' attributeName='text-length' to='128'/>
-                </use>
-                <use id="detail-overlay-time-text" class="detail-overlay-normal-text" x="10" y="$+5" width="100%-20" href="#dynamic-textarea" overflow="visible">
+                <use id="detail-overlay-time-text" class="detail-overlay-normal-text" href="#dynamic-textarea">
                     <set href="#text" attributeName="text-buffer" to="Time"/>
-                    <set href='#text' attributeName='font-size' to='inherit'/>
-                    <set href='#text' attributeName='text-length' to='128'/>
+                    <set href="#text" attributeName="font-size" to="inherit"/>
+                    <set href="#text" attributeName="font-family" to="Seville-Regular"/>
+                    <set href="#text" attributeName="text-length" to="128"/>
+                </use>
+                <use id="detail-overlay-location-text" class="detail-overlay-normal-text" href="#dynamic-textarea">
+                    <set href="#text" attributeName="text-buffer" to="Location"/>
+                    <set href="#text" attributeName="font-size" to="inherit"/>
+                    <set href="#text" attributeName="font-family" to="Seville-Regular"/>
+                    <set href="#text" attributeName="text-length" to="128"/>
+                </use>
+                <use id="detail-overlay-calendar-text" class="detail-overlay-normal-text" href="#dynamic-textarea">
+                    <set href="#text" attributeName="text-buffer" to="Calendar"/>
+                    <set href="#text" attributeName="font-size" to="inherit"/>
+                    <set href="#text" attributeName="font-family" to="Seville-Regular"/>
+                    <set href="#text" attributeName="text-length" to="128"/>
                 </use>
                 <use href="#square-button-neutral" id="detail-back-btn" y="$+10">
                     <set href="#text" attributeName="text-buffer" to="Back" />
